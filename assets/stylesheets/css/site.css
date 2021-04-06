@@ -166,7 +166,7 @@ Components
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   width: 800px;
-  height: 600px;
+  height: 500px;
   margin: 0 auto;
   background-color: #f7f7f7; }
 .device-picker__header {

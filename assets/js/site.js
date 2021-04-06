@@ -118,15 +118,15 @@ class BrandSelect {
         })
     }
 
-    addOption() {
-
+    _attachEvent() {
+        // Bind the handler to current instance
+        this.selectTag.addEventListener('change', this._selectHandler.bind(this))
     }
 
-    _attachEvent() {
-        this.selectTag.addEventListener('change', (e) => {
-            const selectedOption = this.selectTag.options[this.selectTag.selectedIndex]
-            this.renderProductView(selectedOption.value)
-        })
+    _selectHandler(e) {
+        const select = e.target
+        const selectedOption = select.options[select.selectedIndex]
+        this.renderProductView(selectedOption.value)
     }
 
     renderProductView(brandName) {
