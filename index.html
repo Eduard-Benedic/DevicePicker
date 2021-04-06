@@ -4,12 +4,43 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/stylesheets/css/site.css">
   <title>Mous Task 2</title>
 </head>
 <body>
-  <div class="device-picker">
+    <div class="device-picker">
     <!-- code goes here -->
-  </div>
+        <div class="device-picker__container">
+            <div class="device-picker__box">
+                <header class="device-picker__header">
+                    <h2 class="device-picker__heading">
+                        Phone finder
+                    </h2>
+                </header>
+                <div class="device-picker__body">
+                    <h2 class="h h--xl h--center h--black">Select your phone brand</h2>
+                    <div class="select ">
+                        <div class="select__container select__container--py">
+                            <select el="selectBrand" class="select__tag select__tag--rounded select__tag--md-width" name="phone-brand" id="phone-brand">
+                            </select>
+                        </div>
+                    </div>
+                    <h2 class="h h--xl h--center h--black">Select your phone model</h2>
+                    <div el="productContainer" class="device-picker__grid">
+                       <!--This will be renderd dynamically based on the brand. -->
+                    </div>
+                    <div class="center-x">
+                        <button class="btn btn--black btn--light btn--lg" type="button">Show me the products</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="assets/js/site.js"></script>
 </body>
 </html>
