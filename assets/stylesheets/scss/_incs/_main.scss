@@ -29,7 +29,6 @@ Common Utility Classes
   justify-content: center;
 }
 
-
 /* ==========================
 Components
 ============================*/
@@ -52,7 +51,7 @@ Components
 .btn {
   @include shadow-sm;
   font-family: 'Raleway';
-  padding: .6em 1em;
+  padding: .4em 1em;
   border: none;
   outline: none;
   cursor: pointer;
@@ -79,7 +78,6 @@ Components
   }
 }
 
-// rounded-select
 .select {
   &__container {
     max-width: 150px;
@@ -91,16 +89,15 @@ Components
     }
   }
   &__tag {
-    padding: .4em 2em;
+    padding: .6em 1em;
     position: relative;
     z-index: 2;
     background-color: transparent;
     width: 100%;
     border: 1px solid $COLOR_BLACK;
     color: $COLOR_BLACK;
-
     &--rounded {
-      border-radius: 50px;
+      border-radius: 30px;
     }
     &--md-width {
       max-width: 150px;
@@ -115,7 +112,7 @@ Components
       width: 30px;
       height: 100%;
       &--rounded {
-        border-radius: 50px;
+        border-radius: 30px;
       }
       &--black {
         background-color: $COLOR_BLACK;
@@ -134,8 +131,6 @@ Components
      &--white {
         border-top-color: $COLOR_WHITE;
     }
-    
-   
   }
 }
 
@@ -149,15 +144,23 @@ Components
     background-color: rgba(0,0,0,.6);
   }
   &__box {
-    position: absolute;
     @include shadow-lg;
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 800px;
     height: 500px;
     margin: 0 auto;
+    box-shadow: inset 4px 4px 10px rgb(255,255,255);
     background-color: $COLOR_WHITE_VARIATION;
+    @include breakpoint(tablet) {
+        overflow-y: scroll;
+        width: 500px;
+    }
+    @include breakpoint(mobileonly) {
+        width: 300px;
+     }
   }
   &__header {
     padding-top: .8em;
@@ -178,6 +181,13 @@ Components
     grid-gap: 35px;
     margin-top: 2.5em;
     margin-bottom: 2.5em;
+    @include breakpoint(tablet) {
+        grid-template-columns: 1fr 1fr;
+        padding: 0 1em;
+    }
+    @include breakpoint(mobileonly) {
+        grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -200,7 +210,11 @@ Components
     }
   }
   &__img {
-    max-height: 110px;
+    width: 100%;
+    margin: 0 auto;
+    @include breakpoint(mobile) {
+        max-width: 60px;
+    }
   }
   &__title {
     padding-top: .5em;

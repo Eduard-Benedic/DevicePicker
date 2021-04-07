@@ -1,0 +1,7 @@
+.grid-4fr {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    @include breakpoint(mobileonly) {
+        grid-template-columns: 1fr;
+    }
+}

@@ -20,9 +20,9 @@ const clearNode = (node) => {
 
 // DevicePicker - contains the main logic for removing and adding the correct products
 class DevicePicker {
-    constructor({ selectStr, productContainer, data }) {
+    constructor({ selectStr, productContainerSelector, data }) {
         this.selectEl = select(selectStr)
-        this.productContainer = select(productContainer)
+        this.productContainer = select(productContainerSelector)
         this.data = data
     }
 
@@ -93,7 +93,7 @@ class DevicePicker {
 window.addEventListener('DOMContentLoaded', () => {
     const devicePicker = new DevicePicker({
         selectStr: selectors.selectBrand,
-        productContainer: selectors.productContainer,
+        productContainerSelector: selectors.productContainer,
         data: DATA_STORE
     })
 
