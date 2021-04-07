@@ -84,18 +84,21 @@ Components
   &__container {
     max-width: 150px;
     margin: 0 auto;
+    position: relative;
     &--py {
-      padding-top: 1em;
-      padding-bottom: 2em;
+      margin-top: 1em;
+      margin-bottom: 2em;
     }
   }
   &__tag {
     padding: .4em 2em;
-    border: 1px solid $COLOR_BLACK;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
     width: 100%;
+    border: 1px solid $COLOR_BLACK;
     color: $COLOR_BLACK;
-    background-color: white;
-  
+
     &--rounded {
       border-radius: 50px;
     }
@@ -104,7 +107,36 @@ Components
       margin: 0 auto;
     }
   }
-  
+  &__arrow-container {
+      position: absolute;
+      display: flex;
+      right: 0;
+      top: 0;
+      width: 30px;
+      height: 100%;
+      &--rounded {
+        border-radius: 50px;
+      }
+      &--black {
+        background-color: $COLOR_BLACK;
+      }
+  }
+  &__arrow {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    transform: translate(50%, -50%);
+    border-top: 6px solid;
+     &--white {
+        border-top-color: $COLOR_WHITE;
+    }
+    
+   
+  }
 }
 
 .device-picker {
@@ -144,8 +176,8 @@ Components
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 35px;
-    padding-top: 2.5em;
-    padding-bottom: 2.5em;
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
   }
 }
 

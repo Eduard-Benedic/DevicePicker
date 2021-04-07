@@ -1,87 +1,10 @@
 
 // I will assume the data is fetched from an API and looks like this
-const DATA_STORE = [
-    {
-        brand: 'Apple',
-        products: [
-            {
-                model: 'iPhone 12 Pro Max',
-                img: 'assets/images/iphone.jpg'
-            },
-            {
-                model: 'iPhone 12 Pro',
-                img: 'assets/images/iphone.jpg'
-            },
-            {
-                model: 'iPhone 12',
-                img: 'assets/images/iphone.jpg'
-            },
-            {
-                model: 'iPhone 11 Pro Max',
-                img: 'assets/images/iphone.jpg'
-            },
-            {
-                model: 'iPhone 11 Pro',
-                img: 'assets/images/iphone.jpg'
-            }
-        ],
-
-    },
-    {
-        brand: 'Samsung',
-        products: [
-            {
-                model: 'Galaxy S21 Ultra',
-                img: 'assets/images/galaxy.jpg'
-            },
-            {
-                model: 'Galaxy S21 Plus',
-                img: 'assets/images/galaxy.jpg'
-            },
-            {
-                model: 'Galaxy S21',
-                img: 'assets/images/galaxy.jpg'
-            },
-            {
-                model: 'Galaxy S10',
-                img: 'assets/images/galaxy.jpg'
-            },
-            {
-                model: 'Galaxy S8',
-                img: 'assets/images/galaxy.jpg'
-            }
-        ]
-    },
-    {
-        brand: 'Google',
-        products: [
-            {
-                model: 'Google S21 Ultra',
-                img: 'assets/images/pixel.jpg'
-            },
-            {
-                model: 'Google S21 Plus',
-                img: 'assets/images/pixel.jpg'
-            },
-            {
-                model: 'Google S21',
-                img: 'assets/images/pixel.jpg'
-            },
-            {
-                model: 'Google S10',
-                img: 'assets/images/pixel.jpg'
-            },
-            {
-                model: 'Google S8',
-                img: 'assets/images/pixel.jpg'
-            }
-        ]
-    }
-]
+const DATA_STORE = window.DATA
 
 const selectors = {
     selectBrand: '[el="selectBrand"]',
-    productContainer: '[el="productContainer"]'
+    productContainer: '[el="productContainer"]',
 }
 
 // Utility Functions
@@ -91,16 +14,16 @@ const select = (selector, isAll) => {
     return document.querySelector(selector)
 }
 
-
 const clearNode = (node) => {
     while(node.firstChild) node.removeChild(node.firstChild)
 }
 
-class BrandSelect {
+// DevicePicker - contains the main logic for removing and adding the correct products
+class DevicePicker {
     constructor({ selectStr, productContainer, data }) {
-        this.selectTag = select(selectStr)
-        this.data = data
+        this.selectEl = select(selectStr)
         this.productContainer = select(productContainer)
+        this.data = data
     }
 
     init() {
@@ -114,19 +37,34 @@ class BrandSelect {
             const option = document.createElement('option')
             option.text = brand.brand
             option.value = brand.brand
-            this.selectTag.add(option)
+            this.selectEl.add(option)
         })
     }
 
     _attachEvent() {
         // Bind the handler to current instance
-        this.selectTag.addEventListener('change', this._selectHandler.bind(this))
+        this.selectEl.addEventListener('change', this._selectHandler.bind(this))
+        this.productContainer.addEventListener('click', this._highlightProductHandler.bind(this))
     }
 
     _selectHandler(e) {
         const select = e.target
         const selectedOption = select.options[select.selectedIndex]
         this.renderProductView(selectedOption.value)
+    }
+
+    _highlightProductHandler(e) {
+        const target = e.target
+        // If you click on the parent simply return, otherwise all product-element would be highlighted
+        if (Object.is(target, this.productContainer)) {
+            return
+        }
+        const productNodes = e.currentTarget.childNodes
+        productNodes.forEach(node => {
+            const productContainer = node.firstElementChild
+            productContainer.classList.remove('product-element__container--active')
+        })
+        target.parentNode.classList.add('product-element__container--active')
     }
 
     renderProductView(brandName) {
@@ -142,10 +80,10 @@ class BrandSelect {
     }
 
     getProductTemplate(productData) {
-        const {img, model} = productData
+        const {img,alt,  model} = productData
         return `<div class="product-element">
                     <div class="product-element__container">
-                        <img class="product-element__img" src="${img}" alt="${model}">
+                        <img class="product-element__img" src="${img}" alt="${alt}">
                         <h3 class="product-element__title">${model}</h3>
                     </div>
                 </div>`
@@ -153,10 +91,11 @@ class BrandSelect {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const brandSelect = new BrandSelect({
+    const devicePicker = new DevicePicker({
         selectStr: selectors.selectBrand,
         productContainer: selectors.productContainer,
         data: DATA_STORE
     })
-    brandSelect.init()
+
+    devicePicker.init()
 })
